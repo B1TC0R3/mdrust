@@ -3,6 +3,8 @@ use std::env;
 use std::error::Error;
 use std::process::exit;
 
+use colored::Colorize;
+
 struct Settings {
     filename: String,
 }
@@ -17,6 +19,22 @@ struct Mode {
 }
 
 impl Mode {
+    pub fn is_italic(&self) -> bool {
+        self.italic
+    }
+
+    pub fn is_bold(&self) -> bool {
+        self.bold
+    }
+
+    pub fn is_quote(&self) -> bool {
+        self.quote
+    }
+
+    pub fn get_heading_level(&self) -> usize {
+        self.heading_level
+    }
+
     pub fn incr_heading_level(&mut self) {
         if self.heading_level < 6 {
             self.heading_level += 1;
@@ -93,6 +111,47 @@ fn update_modes(mut mode: Mode, c: char) -> Mode {
     mode
 }
 
+fn render_char_as_string(mode: &Mode, c: char) -> String {
+    let mut result: String = String::new();
+    result.push(c);
+
+    if mode.is_bold() {
+        result = format!("{}", result).bold().to_string();
+    }
+
+    if mode.is_italic() {
+        result = format!("{}", result).italic().to_string();
+    }
+
+    if mode.is_quote() {
+        result = format!("{}", result).truecolor(131, 131, 131).to_string();
+    }
+
+    match mode.get_heading_level() {
+        1 => {
+            result = format!("{}", result).truecolor(123, 178, 65).underline().to_string();
+        },
+        2 => {
+            result = format!("{}", result).truecolor(103, 184, 176).to_string();
+        },
+        3 => {
+            result = format!("{}", result).truecolor(37, 196, 216).to_string();
+        },
+        4 => {
+            result = format!("{}", result).truecolor(3, 169, 244).to_string();
+        },
+        5 => {
+            result = format!("{}", result).truecolor(156, 40, 176).to_string();
+        },
+        6 => {
+            result = format!("{}", result).truecolor(229, 29, 97).to_string();
+        },
+        _ => {},
+    };
+
+    result
+}
+
 fn main() -> Result<(), Box<dyn Error>>{
     let settings: Settings;
     let mut write_mode: Mode;
@@ -132,7 +191,7 @@ fn main() -> Result<(), Box<dyn Error>>{
         };
 
         write_mode = update_modes(write_mode, current_char);
-        rendered_text.push(current_char);
+        rendered_text.push_str(&render_char_as_string(&write_mode, current_char));
     }
 
     println!("{}", rendered_text);
