@@ -1,4 +1,4 @@
-# RustMd
+# MdRust
 
 This is a simple renderiung engine for Markdown files.
 Currently it is work in progress.
@@ -25,6 +25,10 @@ _Italic_
 2. Item 2
 
 > Quote
+
+**Weird Bold* Normal
+
+*Weird Italic** Normal
 
 ## Unicode chars
 
