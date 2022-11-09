@@ -113,6 +113,12 @@ fn update_modes(mut mode: Mode, c: char) -> Mode {
 
 fn render_char_as_string(mode: &Mode, c: char) -> String {
     let mut result: String = String::new();
+
+    if mode.get_heading_level() >= 1
+    && (c == ' ' || c == '#') {
+        return "".to_string();
+    }
+
     result.push(c);
 
     if mode.is_bold() {
@@ -129,22 +135,22 @@ fn render_char_as_string(mode: &Mode, c: char) -> String {
 
     match mode.get_heading_level() {
         1 => {
-            result = format!("{}", result).truecolor(123, 178, 65).underline().to_string();
+            result = format!("{}", result).truecolor(123, 178, 65).bold().underline().to_string();
         },
         2 => {
-            result = format!("{}", result).truecolor(103, 184, 176).to_string();
+            result = format!("{}", result).truecolor(103, 184, 176).bold().underline().to_string();
         },
         3 => {
-            result = format!("{}", result).truecolor(37, 196, 216).to_string();
+            result = format!("{}", result).truecolor(37, 196, 216).bold().underline().to_string();
         },
         4 => {
-            result = format!("{}", result).truecolor(3, 169, 244).to_string();
+            result = format!("{}", result).truecolor(3, 169, 244).bold().to_string();
         },
         5 => {
-            result = format!("{}", result).truecolor(156, 40, 176).to_string();
+            result = format!("{}", result).truecolor(156, 40, 176).bold().to_string();
         },
         6 => {
-            result = format!("{}", result).truecolor(229, 29, 97).to_string();
+            result = format!("{}", result).truecolor(229, 29, 97).bold().to_string();
         },
         _ => {},
     };
