@@ -3,7 +3,7 @@
 This is a simple renderiung engine for Markdown files.
 Currently it is work in progress.
 
-## Woorking Features
+## Working Features
 
 Titles get rendered from `#` to `######`.
 
