@@ -3,6 +3,10 @@
 This is a simple renderiung engine for Markdown files.
 Currently it is work in progress.
 
+## Woorking Features
+
+Titles get rendered from `#` to `######`.
+
 ## Test section
 
 ### Heading 3
