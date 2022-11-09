@@ -1,6 +1,6 @@
 # MdRust
 
-This is a simple renderiung engine for Markdown files.
+This is a simple rendering engine for Markdown files.
 Currently it is work in progress.
 
 ## Working Features
